@@ -23,21 +23,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "../ui/button";
 
-// "success": true,
-//     "statusCode": 200,
-//     "message": "User retrived successfully.",
-//     "data": {
-//         "id": "2e9ce553-136f-4e14-ae79-5c81fb9c8d22",
-//         "name": "Abdur Rahim",
-//         "email": "rahim@mail.com",
-//         "phone": "01234567810",
-//         "status": "ACTIVE",
-//         "role": "TENANT",
-//         "profile_photo": "rahim_profile.com",
-//         "created_at": "2026-07-09T13:54:27.283Z",
-//         "updated_at": "2026-07-16T12:14:56.822Z"
-//     }
-
 type IUser = {
   success: boolean;
   statusCode: number;
@@ -73,7 +58,13 @@ export function Navbar({ user }: NavbarProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-            <Image src={Logo} width={150} height={35} alt="RentNest Logo" />
+            <Image
+              src={Logo}
+              width={150}
+              height={35}
+              className="h-auto"
+              alt="RentNest Logo"
+            />
           </Link>
 
           {/* Desktop Menu - Center */}

@@ -1,9 +1,11 @@
+import Footer from "@/components/shared/Footer";
 import { Navbar } from "@/components/shared/Navbar";
 import { cn } from "@/lib/utils";
 import { getMe } from "@/service/getMe";
 import { Menu } from "@base-ui/react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -47,6 +49,8 @@ export default async function RootLayout({
           <Navbar user={user} />
         </Menu.Group>
         {children}
+        <Toaster position="top-right" richColors />
+        <Footer />
       </body>
     </html>
   );
