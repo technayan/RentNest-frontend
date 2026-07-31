@@ -23,3 +23,13 @@ export type IRegisterResponse = {
     updated_at: string;
   };
 };
+
+export type ILoginResponse = {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: {
+    accessToken: string;
+    refreshToken: string;
+  };
+};

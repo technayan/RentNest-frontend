@@ -28,6 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
 import { startTransition, useActionState, useEffect } from "react";
 import { toast } from "sonner";
 import { registerAction } from "../_actions/authActions";
@@ -244,7 +245,7 @@ export function RegisterForm() {
           </FieldGroup>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-center mt-2">
+      <CardFooter className="flex flex-col mt-2">
         <Button
           type="submit"
           className={"px-5 py-5 w-full cursor-pointer"}
@@ -252,6 +253,12 @@ export function RegisterForm() {
         >
           {pending ? "Submitting..." : "Submit"}
         </Button>
+        <p className="mt-4">
+          Already have an account?{" "}
+          <Link href={"/login"} className="underline hover:text-primary">
+            Login
+          </Link>
+        </p>
       </CardFooter>
     </Card>
   );

@@ -52,6 +52,15 @@ export function Navbar({ user }: NavbarProps) {
     { id: "properties", label: "Available Properties", href: "/properties" },
   ];
 
+  const userNameInitials = user.data.name
+    .toUpperCase()
+    .split(" ")
+    .map((n) => n[0])
+    .slice(0, 2)
+    .join("");
+
+  console.log(userNameInitials);
+
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto px-4">
@@ -87,8 +96,11 @@ export function Navbar({ user }: NavbarProps) {
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar className="size-9">
-                    <AvatarImage src="/user-avatar.png" alt="User avatar" />
-                    <AvatarFallback>{"JD"}</AvatarFallback>
+                    <AvatarImage
+                      src={user.data.profile_photo}
+                      alt={user.data.name}
+                    />
+                    <AvatarFallback>{userNameInitials}</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">

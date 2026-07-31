@@ -2,7 +2,7 @@ import { RegisterForm } from "../_component/RegisterForm";
 
 export default function RegisterPage() {
   return (
-    <div className="flex justify-center my-15">
+    <div className="min-h-screen flex justify-center items-start my-15">
       <RegisterForm />
     </div>
   );
