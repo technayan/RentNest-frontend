@@ -69,7 +69,7 @@ export function LoginForm() {
   }, [state]);
 
   return (
-    <Card className="w-full sm:max-w-md">
+    <Card className="w-full sm:max-w-md mx-3">
       <CardHeader className="text-center">
         <CardTitle>Login</CardTitle>
         <CardDescription>Provide your valid credentials.</CardDescription>
