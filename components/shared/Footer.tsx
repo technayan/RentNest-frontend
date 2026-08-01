@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export default function Footer() {
-  const year = new Date().getFullYear();
+  const year = 2026;
   return (
     <div className="text-center py-5 border-t">
       Copyright &copy;{year}. All rights reserved to{" "}

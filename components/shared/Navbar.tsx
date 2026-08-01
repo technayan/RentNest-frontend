@@ -17,9 +17,10 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Logo from "@/public/assets/RentNest-logo.png";
-import { LogOut, Menu, Settings, User } from "lucide-react";
+import { LayoutDashboard, LogOut, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
 
@@ -44,13 +45,46 @@ type NavbarProps = {
   user: IUser;
 };
 
+const menuItems = [
+  { id: "home", label: "Home", href: "/" },
+  { id: "properties", label: "Available Properties", href: "/properties" },
+];
+
+const tenantProfileItems = [
+  {
+    id: "dashboard",
+    label: "Dashboard",
+    icon: LayoutDashboard,
+    href: "/dashboard/tenant",
+  },
+];
+
+const authorProfileItems = [
+  {
+    id: "dashboard",
+    label: "Dashboard",
+    icon: LayoutDashboard,
+    href: "/dashboard/author",
+  },
+];
+
+const adminProfileItems = [
+  {
+    id: "dashboard",
+    label: "Dashboard",
+    icon: LayoutDashboard,
+    href: "/dashboard/admin",
+  },
+];
+
 export function Navbar({ user }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
-  const menuItems = [
-    { id: "home", label: "Home", href: "/" },
-    { id: "properties", label: "Available Properties", href: "/properties" },
-  ];
+  const navHandler = (href: string) => {
+    setIsOpen(false);
+    router.push(href);
+  };
 
   const userNameInitials = user.data.name
     .toUpperCase()
@@ -59,14 +93,25 @@ export function Navbar({ user }: NavbarProps) {
     .slice(0, 2)
     .join("");
 
-  console.log(userNameInitials);
+  let profileItems = [];
+
+  if (user.data.role === "ADMIN") {
+    profileItems = adminProfileItems;
+  } else if (user.data.role === "AUTHOR") {
+    profileItems = authorProfileItems;
+  } else {
+    profileItems = tenantProfileItems;
+  }
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-bold text-lg">
+          <div
+            onClick={() => navHandler("/")}
+            className="flex items-center gap-2 font-bold text-lg cursor-pointer"
+          >
             <Image
               src={Logo}
               width={150}
@@ -74,18 +119,18 @@ export function Navbar({ user }: NavbarProps) {
               className="h-auto"
               alt="RentNest Logo"
             />
-          </Link>
+          </div>
 
           {/* Desktop Menu - Center */}
           <div className="hidden md:flex items-center gap-8">
             {menuItems.map((item) => (
-              <Link
+              <div
+                onClick={() => navHandler(item.href)}
                 key={item.id}
-                href={item.href}
-                className="text-md font-medium text-foreground/80 transition-colors hover:text-primary"
+                className="text-md font-medium text-foreground/80 transition-colors cursor-pointer hover:text-primary"
               >
                 {item.label}
-              </Link>
+              </div>
             ))}
           </div>
 
@@ -93,36 +138,44 @@ export function Navbar({ user }: NavbarProps) {
           <div className="flex items-center gap-4">
             {/* User Dropdown - Desktop */}
             {user.success ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <Avatar className="size-9">
-                    <AvatarImage
-                      src={user.data.profile_photo}
-                      alt={user.data.name}
-                    />
-                    <AvatarFallback>{userNameInitials}</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel className="font-semibold">
-                    My Account
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <User className="w-4 h-4 mr-2" />
-                    <span>Profile</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Settings className="w-4 h-4 mr-2" />
-                    <span>Settings</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <LogOut className="w-4 h-4 mr-2" />
-                    <span>Logout</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <div className="hidden md:flex items-center justify-center">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className={""}>
+                    <Avatar className="size-9">
+                      <AvatarImage
+                        src={user.data.profile_photo}
+                        alt={user.data.name}
+                      />
+                      <AvatarFallback>{userNameInitials}</AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel className="font-semibold">
+                      My Account
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+
+                    {profileItems.map((item) => (
+                      <DropdownMenuItem
+                        key={item.id}
+                        onClick={() => navHandler(item.href)}
+                        className={"hover:bg-red-100 cursor-pointer"}
+                      >
+                        <item.icon className="w-4 h-4 mr-2" />
+                        <span>{item.label}</span>
+                      </DropdownMenuItem>
+                    ))}
+
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      className={"hover:bg-red-100 cursor-pointer"}
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      <span>Logout</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             ) : (
               <div className="hidden md:flex gap-3">
                 <Button className="p-0 bg-transparent text-primary border-primary hover:bg-primary hover:text-white overflow-hidden cursor-pointer">
@@ -152,40 +205,26 @@ export function Navbar({ user }: NavbarProps) {
                 <nav className="flex flex-col gap-4 mt-8 p-6">
                   {/* Mobile Menu Items */}
                   {menuItems.map((item) => (
-                    <Link
+                    <div
+                      onClick={() => navHandler(item.href)}
                       key={item.id}
-                      href={item.href}
-                      className="text-base font-medium text-foreground/80 transition-colors hover:text-foreground py-2"
-                      onClick={() => setIsOpen(false)}
+                      className="text-md font-medium text-foreground/80 transition-colors cursor-pointer hover:text-primary"
                     >
                       {item.label}
-                    </Link>
+                    </div>
                   ))}
                   <div className="border-t border-border pt-4 mt-4">
                     {user.success ? (
-                      <div>
-                        <button
-                          onClick={() => setIsOpen(false)}
-                          className="flex items-center gap-2 text-base font-medium text-foreground/80 w-full py-2 hover:text-foreground transition-colors"
+                      profileItems.map((item) => (
+                        <div
+                          key={item.id}
+                          onClick={() => navHandler(item.href)}
+                          className="flex items-center cursor-pointer hover:text-primary"
                         >
-                          <User className="w-5 h-5" />
-                          <span>Profile</span>
-                        </button>
-                        <button
-                          onClick={() => setIsOpen(false)}
-                          className="flex items-center gap-2 text-base font-medium text-foreground/80 w-full py-2 hover:text-foreground transition-colors"
-                        >
-                          <Settings className="w-5 h-5" />
-                          <span>Settings</span>
-                        </button>
-                        <button
-                          onClick={() => setIsOpen(false)}
-                          className="flex items-center gap-2 text-base font-medium text-foreground/80 w-full py-2 hover:text-foreground transition-colors"
-                        >
-                          <LogOut className="w-5 h-5" />
-                          <span>Logout</span>
-                        </button>
-                      </div>
+                          <item.icon className="w-4 h-4 mr-2" />
+                          <span>{item.label}</span>
+                        </div>
+                      ))
                     ) : (
                       <div className="flex gap-1 md:hidden">
                         <Button className="p-0 bg-transparent text-primary border-primary hover:bg-primary hover:text-white overflow-hidden cursor-pointer">

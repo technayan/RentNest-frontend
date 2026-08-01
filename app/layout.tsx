@@ -1,24 +1,11 @@
 import Footer from "@/components/shared/Footer";
-import { Navbar } from "@/components/shared/Navbar";
 import { cn } from "@/lib/utils";
-import { getMe } from "@/service/getMe";
-import { Menu } from "@base-ui/react";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "RentNest | Find & List Rental Properties Online",
@@ -31,23 +18,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await getMe();
   return (
     <html
       lang="en"
-      className={cn(
-        "h-full",
-        "antialiased",
-        geistSans.variable,
-        geistMono.variable,
-        "font-sans",
-        inter.variable,
-      )}
+      className={cn("h-full", "antialiased", "font-sans", inter.variable)}
     >
       <body className="min-h-full flex flex-col">
-        <Menu.Group>
-          <Navbar user={user} />
-        </Menu.Group>
         {children}
         <Toaster position="top-right" richColors />
         <Footer />

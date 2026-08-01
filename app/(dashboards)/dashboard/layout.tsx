@@ -1,13 +1,17 @@
 import NavbarArea from "@/components/shared/NavbarArea";
-import { Suspense } from "react";
+import { ReactNode, Suspense } from "react";
 
-export default async function HomePage() {
+export default async function DashboardLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <div>
       <Suspense fallback={""}>
         <NavbarArea />
       </Suspense>
-      <div>HomePage</div>
+      {children}
     </div>
   );
 }
