@@ -11,7 +11,7 @@ export default async function AuthLayout({
       <Suspense fallback={""}>
         <NavbarArea />
       </Suspense>
-      {children}
+      <div className="container mx-auto px-4">{children}</div>
     </div>
   );
 }

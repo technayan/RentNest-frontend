@@ -70,9 +70,9 @@ export function Navbar({ user }: NavbarProps) {
           >
             <Image
               src={Logo}
-              width={150}
+              width={120}
               height={35}
-              className="h-auto"
+              className="h-auto w-auto"
               alt="RentNest Logo"
             />
           </div>

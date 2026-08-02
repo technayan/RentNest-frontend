@@ -1,0 +1,80 @@
+import { IProperty } from "@/lib/types";
+import { MapPin, Star } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Badge } from "../ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+
+export default function PropertyCard({ property }: { property: IProperty }) {
+  return (
+    <Card className="py-3 2xl:py-5">
+      <CardHeader className="px-3 2xl:px-5">
+        <div className="relative">
+          <Link href={`/properties/${property.id}`} className="overflow-hidden">
+            <Image
+              src={property.property_image}
+              width={300}
+              height={200}
+              alt={property.title}
+              className="w-full h-60 rounded-lg sm:h-45 md:h-50 xl:h-50 2xl:h-60 "
+            />
+          </Link>
+          <Badge className="absolute top-0 s p-3 right-1 mt-2 bg-white text-black">
+            Featured
+          </Badge>
+        </div>
+        <div className="flex justify-between items-center mt-2">
+          <Badge className="bg-primary/20 text-black s p-3 capitalize">
+            {property.category.category_name}
+          </Badge>
+          <p className="text-xl font-bold text-primary sm:text-2xl">
+            ${property.price}
+          </p>
+        </div>
+        <Link
+          href={`/properties/${property.id}`}
+          className="hover:text-primary my-2"
+        >
+          <CardTitle className="text-base sm:text-xl">
+            {property.title}
+          </CardTitle>
+        </Link>
+        <CardDescription className="sm:text-base">
+          {property.description.slice(0, 90)}
+          {"..."}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="flex justify-between items-center">
+          <div className="flex flex-col gap-2">
+            <p className="text-sm flex items-start gap-1 sm:text-base">
+              <span className="mt-0.5">
+                <MapPin className="size-4 sm:size-5" />
+              </span>
+              {property.location}
+            </p>
+            <p className="text-sm flex items-center gap-1 sm:text-base">
+              <Star className="size-4 sm:size-5" />
+              {property._count.reviews}
+            </p>
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Link
+          href={`/properties/${property.id}`}
+          className="w-full mt-auto px-4 py-3 bg-transparent text-primary font-medium text-center border border-primary rounded-3xl duration-300 hover:bg-primary hover:text-white"
+        >
+          View Details
+        </Link>
+      </CardFooter>
+    </Card>
+  );
+}

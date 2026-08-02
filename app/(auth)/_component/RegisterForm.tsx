@@ -104,7 +104,7 @@ export function RegisterForm() {
   }, [state]);
 
   return (
-    <Card className="w-full sm:max-w-md mx-3">
+    <Card className="w-full sm:max-w-md">
       <CardHeader className="text-center">
         <CardTitle>Register</CardTitle>
         <CardDescription>Provide your valid credentials.</CardDescription>
