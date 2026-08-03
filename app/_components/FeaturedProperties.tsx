@@ -7,15 +7,14 @@ import { FeaturedPropertySkeleton } from "./FeaturedPropertySkeleton";
 
 export default async function FeaturedProperties() {
   const properties = await getProperties();
-  const featuredProperties = properties.data.data.filter(
-    (p: IProperty) => p.isFeatured === true,
-  );
+  const featuredProperties = properties.data.data
+    .filter((p: IProperty) => p.isFeatured === true)
+    .slice(0, 4);
 
-  // const featuredProperties = properties.map((p) => p.isFeatured);
   return (
     <div className="py-16 lg:py-20">
-      <h2 className="text-2xl font-semibold text-center md:text-3xl lg:text-4xl">
-        Featured Properties
+      <h2 className="text-2xl font-bold text-center md:text-3xl lg:text-4xl">
+        Featured <span className="text-primary">Properties</span>
       </h2>
       <Suspense fallback={<FeaturedPropertySkeleton />}>
         <div className="grid grid-cols-1 my-10 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-3 lg:my-12 2xl:gap-6">

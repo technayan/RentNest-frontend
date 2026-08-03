@@ -31,7 +31,7 @@ export default function PropertyCard({ property }: { property: IProperty }) {
           </Badge>
         </div>
         <div className="flex justify-between items-center mt-2">
-          <Badge className="bg-primary/20 text-black s p-3 capitalize">
+          <Badge className="bg-primary/20 text-black p-3 capitalize">
             {property.category.category_name}
           </Badge>
           <p className="text-xl font-bold text-primary sm:text-2xl">
@@ -40,7 +40,7 @@ export default function PropertyCard({ property }: { property: IProperty }) {
         </div>
         <Link
           href={`/properties/${property.id}`}
-          className="hover:text-primary my-2"
+          className="duration-300 hover:text-primary my-2"
         >
           <CardTitle className="text-base sm:text-xl">
             {property.title}
@@ -51,7 +51,7 @@ export default function PropertyCard({ property }: { property: IProperty }) {
           {"..."}
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-3 2xl:px-5">
         <div className="flex justify-between items-center">
           <div className="flex flex-col gap-2">
             <p className="text-sm flex items-start gap-1 sm:text-base">
@@ -67,7 +67,7 @@ export default function PropertyCard({ property }: { property: IProperty }) {
           </div>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="px-3 2xl:px-5">
         <Link
           href={`/properties/${property.id}`}
           className="w-full mt-auto px-4 py-3 bg-transparent text-primary font-medium text-center border border-primary rounded-3xl duration-300 hover:bg-primary hover:text-white"

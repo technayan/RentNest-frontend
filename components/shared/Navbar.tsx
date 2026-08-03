@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/sheet";
 import { NavbarProps } from "@/lib/types";
 import Logo from "@/public/assets/RentNest-logo.png";
+import { getNameInitials } from "@/service/getNameInitials";
 import { logout } from "@/service/logout";
 import { getProfileItems } from "@/utils/getProfileItems";
 import { LogOut, Menu } from "lucide-react";
@@ -42,15 +43,7 @@ export function Navbar({ user }: NavbarProps) {
     router.push(href);
   };
 
-  const userNameInitials =
-    user?.data?.name
-      .toUpperCase()
-      .split(" ")
-      .map((n) => n[0])
-      .slice(0, 2)
-      .join("") || "";
-
-  const profileItems = getProfileItems(user?.data?.role) || [];
+  const profileItems = getProfileItems(user?.role) || [];
 
   const handleLogout = async () => {
     setIsOpen(false);
@@ -82,10 +75,10 @@ export function Navbar({ user }: NavbarProps) {
             {menuItems.map((item) => (
               <div
                 onClick={() => navHandler(item.href)}
-                key={item.id}
+                key={item?.id}
                 className="text-md font-medium text-foreground/80 transition-colors cursor-pointer hover:text-primary"
               >
-                {item.label}
+                {item?.label}
               </div>
             ))}
           </div>
@@ -93,15 +86,14 @@ export function Navbar({ user }: NavbarProps) {
           {/* Right Section */}
           <div className="flex items-center gap-4">
             {/* User Dropdown - Desktop */}
-            {user?.success ? (
+            {user?.id ? (
               <DropdownMenu>
                 <DropdownMenuTrigger className={"cursor-pointer"}>
                   <Avatar className="size-9">
-                    <AvatarImage
-                      src={user?.data?.profile_photo}
-                      alt={user?.data?.name}
-                    />
-                    <AvatarFallback>{userNameInitials}</AvatarFallback>
+                    <AvatarImage src={user.profile_photo} alt={user.name} />
+                    <AvatarFallback>
+                      {getNameInitials(user.name)}
+                    </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
@@ -172,7 +164,7 @@ export function Navbar({ user }: NavbarProps) {
                     </div>
                   ))}
                   <div className="border-t border-border py-2">
-                    {user?.success ? (
+                    {user?.id ? (
                       <div>
                         {profileItems.map((item) => (
                           <div
