@@ -5,8 +5,13 @@ import { Suspense } from "react";
 import { getProperties } from "../_actions/getProperties";
 import { FeaturedPropertySkeleton } from "./FeaturedPropertySkeleton";
 
-export default async function FeaturedProperties() {
-  const properties = await getProperties();
+export default async function FeaturedProperties({
+  searchParams,
+}: {
+  searchParams?: Promise<{ [key: string]: string | undefined }>;
+}) {
+  const query = await searchParams;
+  const properties = await getProperties({ query });
   const featuredProperties = properties.data.data
     .filter((p: IProperty) => p.isFeatured === true)
     .slice(0, 4);
@@ -19,7 +24,11 @@ export default async function FeaturedProperties() {
       <Suspense fallback={<FeaturedPropertySkeleton />}>
         <div className="grid grid-cols-1 my-10 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-3 lg:my-12 2xl:gap-6">
           {featuredProperties.map((property: IProperty) => (
-            <PropertyCard key={property.id} property={property} />
+            <PropertyCard
+              key={property.id}
+              property={property}
+              featured={true}
+            />
           ))}
         </div>
       </Suspense>

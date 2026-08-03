@@ -83,3 +83,10 @@ export type ICategory = {
 export type ICount = {
   reviews: number;
 };
+
+export type ICategoryInfo = {
+  id: string;
+  category_name: string;
+  created_at: string;
+  updated_at: string;
+};

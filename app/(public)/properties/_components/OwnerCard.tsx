@@ -1,8 +1,9 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { getNameInitials } from "@/service/getNameInitials";
 import { Mail, Phone } from "lucide-react";
-import Image from "next/image";
 
 interface OwnerCardProps {
   ownerImage: string;
@@ -24,12 +25,10 @@ export function OwnerCard({
       {/* Owner Image */}
       <div className="flex justify-center mb-4">
         <div className="relative w-24 h-24 rounded-full overflow-hidden">
-          <Image
-            src={ownerImage}
-            alt={ownerName}
-            fill
-            className="object-cover"
-          />
+          <Avatar className="w-full h-full">
+            <AvatarImage src={ownerImage} alt={ownerName} />
+            <AvatarFallback>{getNameInitials(ownerName)}</AvatarFallback>
+          </Avatar>
         </div>
       </div>
 

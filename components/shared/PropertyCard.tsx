@@ -12,7 +12,13 @@ import {
   CardTitle,
 } from "../ui/card";
 
-export default function PropertyCard({ property }: { property: IProperty }) {
+export default function PropertyCard({
+  property,
+  featured,
+}: {
+  property: IProperty;
+  featured?: boolean;
+}) {
   return (
     <Card className="py-3 2xl:py-5">
       <CardHeader className="px-3 2xl:px-5">
@@ -26,9 +32,18 @@ export default function PropertyCard({ property }: { property: IProperty }) {
               className="w-full h-60 rounded-lg sm:h-45 md:h-50 xl:h-50 2xl:h-60 "
             />
           </Link>
-          <Badge className="absolute top-0 s p-3 right-1 mt-2 bg-white text-black">
-            Featured
-          </Badge>
+          {featured ? (
+            <Badge className="absolute top-0 p-3 right-1 mt-2 bg-white text-black">
+              Featured
+            </Badge>
+          ) : (
+            <Badge
+              variant="outline"
+              className={`absolute top-2 right-2 p-3 ${property.availability_status === "AVAILABLE" ? "bg-primary" : "bg-red-500 "} text-white border-0 capitalize`}
+            >
+              {property.availability_status.toLowerCase()}
+            </Badge>
+          )}
         </div>
         <div className="flex justify-between items-center mt-2">
           <Badge className="bg-primary/20 text-black p-3 capitalize">
