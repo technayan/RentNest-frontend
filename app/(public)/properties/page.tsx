@@ -9,7 +9,7 @@ export default async function PropertiesPage({
   searchParams?: Promise<{ [key: string]: string | undefined }>;
 }) {
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 mt-15">
       <Suspense fallback={""}>
         <SearchForm />
       </Suspense>

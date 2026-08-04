@@ -1,3 +1,4 @@
+
 export type IRegisterProps = {
   name: string;
   email: string;
@@ -89,4 +90,9 @@ export type ICategoryInfo = {
   category_name: string;
   created_at: string;
   updated_at: string;
+};
+
+export type ISidebarItem = {
+  label: string;
+  href: string;
 };

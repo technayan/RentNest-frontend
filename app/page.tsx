@@ -10,7 +10,7 @@ export default async function HomePage() {
       <Suspense fallback={""}>
         <NavbarArea />
       </Suspense>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 mt-25">
         {/* Hero */}
         <div className="relative mt-4">
           <Image

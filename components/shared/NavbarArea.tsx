@@ -7,7 +7,7 @@ export default async function NavbarArea() {
 
   return (
     <Menu.Group>
-      <Navbar user={user.data} />
+      <Navbar user={user?.data} />
     </Menu.Group>
   );
 }

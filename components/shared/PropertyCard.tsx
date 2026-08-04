@@ -29,7 +29,7 @@ export default function PropertyCard({
               width={300}
               height={200}
               alt={property.title}
-              className="w-full h-60 rounded-lg sm:h-45 md:h-50 xl:h-50 2xl:h-60 "
+              className={`w-full h-60 rounded-lg sm:h-45 md:h-50 ${featured ? "2xl:h-60" : "xl:h-60 2xl:h-70"}`}
             />
           </Link>
           {featured ? (

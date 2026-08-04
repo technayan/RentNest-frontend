@@ -53,7 +53,7 @@ export function Navbar({ user }: NavbarProps) {
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+    <nav className="fixed top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -90,9 +90,9 @@ export function Navbar({ user }: NavbarProps) {
               <DropdownMenu>
                 <DropdownMenuTrigger className={"cursor-pointer"}>
                   <Avatar className="size-9">
-                    <AvatarImage src={user.profile_photo} alt={user.name} />
+                    <AvatarImage src={user.profile_photo} alt={user?.name} />
                     <AvatarFallback>
-                      {getNameInitials(user.name)}
+                      {getNameInitials(user?.name)}
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
@@ -101,7 +101,8 @@ export function Navbar({ user }: NavbarProps) {
                   className="hidden md:block md:w-56"
                 >
                   <DropdownMenuLabel className="font-semibold">
-                    My Account
+                    <p>{user?.name}</p>
+                    <p>{user?.email}</p>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
 
@@ -150,7 +151,10 @@ export function Navbar({ user }: NavbarProps) {
               </SheetTrigger>
               <SheetContent side="right" className="w-75 sm:w-100">
                 <SheetHeader>
-                  <SheetTitle>Menu</SheetTitle>
+                  <SheetTitle>
+                    <p>{user?.name}</p>
+                    <p>{user?.email}</p>
+                  </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col gap-2 mt-8 p-6">
                   {/* Mobile Menu Items */}
