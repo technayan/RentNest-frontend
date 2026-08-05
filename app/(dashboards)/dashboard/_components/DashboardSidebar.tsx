@@ -19,15 +19,13 @@ export function DashboardSidebar({ user }: NavbarProps) {
 
   let dashboardItems: ISidebarItem[] = [];
 
-  if (user.role === "TENANT") {
+  if (user?.role === "TENANT") {
     dashboardItems = sidebarMenuItems.TENANT;
-  } else if (user.role === "LANDLORD") {
+  } else if (user?.role === "LANDLORD") {
     dashboardItems = sidebarMenuItems.LANDLORD;
-  } else if (user.role === "ADMIN") {
+  } else if (user?.role === "ADMIN") {
     dashboardItems = sidebarMenuItems.ADMIN;
   }
-  console.log(dashboardItems);
-  console.log(user);
 
   return (
     <Sidebar>

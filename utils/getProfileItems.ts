@@ -5,7 +5,7 @@ const tenantProfileItems = [
     id: "dashboard",
     label: "Dashboard",
     icon: LayoutDashboard,
-    href: "/dashboard/tenant",
+    href: "/dashboard/tenant/profile",
   },
 ];
 
@@ -14,7 +14,7 @@ const landlordProfileItems = [
     id: "dashboard",
     label: "Dashboard",
     icon: LayoutDashboard,
-    href: "/dashboard/landlord",
+    href: "/dashboard/landlord/profile",
   },
 ];
 
@@ -23,7 +23,7 @@ const adminProfileItems = [
     id: "dashboard",
     label: "Dashboard",
     icon: LayoutDashboard,
-    href: "/dashboard/admin",
+    href: "/dashboard/admin/profile",
   },
 ];
 

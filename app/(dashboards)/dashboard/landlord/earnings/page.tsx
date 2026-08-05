@@ -1,3 +1,3 @@
 export default function LandlordEarningPage() {
-  return <div className="mt-25">Landlord Earning Page</div>;
+  return <div>Landlord Earning Page</div>;
 }

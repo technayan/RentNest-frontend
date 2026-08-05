@@ -125,6 +125,7 @@ export function RegisterForm() {
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter your name"
                     autoComplete="on"
+                    className="py-5"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -144,6 +145,7 @@ export function RegisterForm() {
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter your valid email"
                     autoComplete="on"
+                    className="py-5"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -164,6 +166,7 @@ export function RegisterForm() {
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter your valid phone no."
                     autoComplete="on"
+                    className="py-5"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -186,6 +189,7 @@ export function RegisterForm() {
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter your password."
                     autoComplete="on"
+                    className="py-5"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -235,6 +239,7 @@ export function RegisterForm() {
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter your profile photo link"
                     autoComplete="on"
+                    className="py-5"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />

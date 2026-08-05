@@ -89,6 +89,7 @@ export function LoginForm() {
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter your valid email"
                     autoComplete="on"
+                    className="py-5"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -111,6 +112,7 @@ export function LoginForm() {
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter your password."
                     autoComplete="on"
+                    className="py-5"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />

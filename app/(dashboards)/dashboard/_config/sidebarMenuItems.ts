@@ -2,6 +2,10 @@ import { ISidebarItem } from "@/lib/types";
 
 const TENANT_SIDEBAR_ITEMS: ISidebarItem[] = [
   {
+    label: "Profile",
+    href: "/dashboard/landlord/profile",
+  },
+  {
     label: "Requests",
     href: "/dashboard/tenant/requests",
   },
@@ -40,6 +44,10 @@ const LANDLORD_SIDEBAR_ITEMS: ISidebarItem[] = [
 
 const ADMIN_SIDEBAR_ITEMS: ISidebarItem[] = [
   {
+    label: "Profile",
+    href: "/dashboard/admin/profile",
+  },
+  {
     label: "All Users",
     href: "/dashboard/admin/users",
   },
@@ -50,18 +58,6 @@ const ADMIN_SIDEBAR_ITEMS: ISidebarItem[] = [
   {
     label: "All Pending Requests",
     href: "/dashboard/admin/pending-requests",
-  },
-  {
-    label: "Rental History",
-    href: "/dashboard/admin/rental-history",
-  },
-  {
-    label: "Earnings",
-    href: "/dashboard/admin/earnings",
-  },
-  {
-    label: "Reviews",
-    href: "/dashboard/admin/reviews",
   },
 ];
 
