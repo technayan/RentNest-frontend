@@ -24,12 +24,14 @@ export function ProfileUpdateDialog({ user }: { user: IUser }) {
   const [inputPhone, setInputPhone] = useState(user?.phone ?? "");
   const [inputPhoto, setInputPhoto] = useState(user?.profile_photo ?? "");
   const [submitted, setSubmitted] = useState(false);
+
   const initialState = {
     success: false,
     statusCode: 0,
     message: "",
     data: {},
   };
+
   const [state, action, pending] = useActionState(
     handleUpdateProfile,
     initialState,
@@ -83,6 +85,7 @@ export function ProfileUpdateDialog({ user }: { user: IUser }) {
               <Input
                 id="name"
                 name="name"
+                className="py-5"
                 value={inputName}
                 onChange={(e) => setInputName(e.target.value)}
               />
@@ -92,6 +95,7 @@ export function ProfileUpdateDialog({ user }: { user: IUser }) {
               <Input
                 id="phone"
                 name="phone"
+                className="py-5"
                 value={inputPhone}
                 onChange={(e) => setInputPhone(e.target.value)}
               />
@@ -101,6 +105,7 @@ export function ProfileUpdateDialog({ user }: { user: IUser }) {
               <Input
                 id="profile_photo"
                 name="profile_photo"
+                className="py-5"
                 value={inputPhoto}
                 onChange={(e) => setInputPhoto(e.target.value)}
               />

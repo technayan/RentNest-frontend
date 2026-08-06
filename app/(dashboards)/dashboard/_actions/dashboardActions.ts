@@ -61,6 +61,7 @@ export const handleUpdateProfile = async (
   return result;
 };
 
+//* Get My Properties
 export const getMyProperties = async () => {
   const accessToken = await isAccessTokenExist();
 
@@ -71,10 +72,62 @@ export const getMyProperties = async () => {
         Cookie: `accessToken=${accessToken}`,
         "content-type": "application/json",
       },
+      cache: "force-cache",
+      next: {
+        revalidate: 60 * 60 * 24,
+        tags: ["my-properties"],
+      },
     },
   );
 
   const result = await res.json();
+
+  return result;
+};
+
+//* Update Property
+export const updateProperty = async (
+  id: string,
+  prevPost: FormState,
+  formData: FormData,
+) => {
+  const accessToken = await isAccessTokenExist();
+
+  const title = formData.get("title");
+  const description = formData.get("description");
+  const property_image = formData.get("property_image");
+  const price = formData.get("price");
+  const location = formData.get("location");
+  const category = formData.get("category");
+  const availability_status = formData.get("availability_status");
+
+  const payload = {
+    title,
+    description,
+    property_image,
+    price,
+    location,
+    category,
+    availability_status,
+  };
+
+  const res = await fetch(
+    `${process.env.BACKEND_API_URL}/api/landlord/properties/${id}`,
+    {
+      method: "PUT",
+      headers: {
+        Cookie: `accessToken=${accessToken}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    },
+  );
+
+  const result = await res.json();
+
+  if (result.success) {
+    revalidateTag("my-properties", { expire: 0 });
+  }
 
   return result;
 };

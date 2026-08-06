@@ -1,4 +1,3 @@
-
 export type IRegisterProps = {
   name: string;
   email: string;
@@ -60,7 +59,7 @@ export type IProperty = {
   description: string;
   price: string;
   location: string;
-  availability_status: "AVAILABLE" | "RENTED";
+  availability_status: "AVAILABLE" | "RENTED" | "UNAVAILABLE";
   isDeleted: boolean;
   isFeatured: boolean;
   created_at: string;

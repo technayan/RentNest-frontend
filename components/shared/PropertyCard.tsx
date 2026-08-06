@@ -1,3 +1,4 @@
+import { PropertyEditDialog } from "@/app/(dashboards)/dashboard/_components/PropertyEditDialog";
 import { IProperty } from "@/lib/types";
 import { MapPin, Star } from "lucide-react";
 import Image from "next/image";
@@ -88,8 +89,8 @@ export default function PropertyCard({
       <CardFooter className="px-3 2xl:px-5">
         {dashboardProperty ? (
           <div className="flex gap-1">
-            <Button className="cursor-pointer px-4 py-4">Edit</Button>
-            <Button variant="destructive" className="cursor-pointer px-4 py-4">
+            <PropertyEditDialog property={property} />
+            <Button className="cursor-pointer px-6 py-4 text-destructive bg-destructive/30 hover:bg-destructive hover:text-white">
               Remove
             </Button>
           </div>
