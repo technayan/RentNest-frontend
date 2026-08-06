@@ -1,10 +1,10 @@
+import DeletePropertyButton from "@/app/(dashboards)/dashboard/_components/DeletePropertyButton";
 import { PropertyEditDialog } from "@/app/(dashboards)/dashboard/_components/PropertyEditDialog";
 import { IProperty } from "@/lib/types";
 import { MapPin, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
@@ -90,9 +90,8 @@ export default function PropertyCard({
         {dashboardProperty ? (
           <div className="flex gap-1">
             <PropertyEditDialog property={property} />
-            <Button className="cursor-pointer px-6 py-4 text-destructive bg-destructive/30 hover:bg-destructive hover:text-white">
-              Remove
-            </Button>
+
+            <DeletePropertyButton id={property?.id} />
           </div>
         ) : (
           <Link

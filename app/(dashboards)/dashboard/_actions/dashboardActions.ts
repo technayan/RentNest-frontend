@@ -131,3 +131,28 @@ export const updateProperty = async (
 
   return result;
 };
+
+//* Delete Property
+export const deleteProperty = async (id: string) => {
+  const accessToken = await isAccessTokenExist();
+
+  const res = await fetch(
+    `${process.env.BACKEND_API_URL}/api/landlord/properties/${id}`,
+    {
+      method: "DELETE",
+      headers: {
+        Cookie: `accessToken=${accessToken}`,
+        "content-type": "application/json",
+      },
+    },
+  );
+
+  const result = await res.json();
+
+  if (result.success) {
+    revalidateTag("my-properties", { expire: 0 });
+    revalidateTag("properties", { expire: 0 });
+  }
+
+  return result;
+};
