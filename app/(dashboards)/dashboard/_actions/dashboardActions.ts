@@ -60,3 +60,21 @@ export const handleUpdateProfile = async (
 
   return result;
 };
+
+export const getMyProperties = async () => {
+  const accessToken = await isAccessTokenExist();
+
+  const res = await fetch(
+    `${process.env.BACKEND_API_URL}/api/landlord/properties`,
+    {
+      headers: {
+        Cookie: `accessToken=${accessToken}`,
+        "content-type": "application/json",
+      },
+    },
+  );
+
+  const result = await res.json();
+
+  return result;
+};

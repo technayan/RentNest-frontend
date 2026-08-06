@@ -11,7 +11,7 @@ export default async function PropertiesLayout({
       <Suspense fallback={""}>
         <NavbarArea />
       </Suspense>
-      {children}
+      <div className="mt-15">{children}</div>
     </div>
   );
 }

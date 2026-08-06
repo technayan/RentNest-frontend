@@ -3,6 +3,7 @@ import { MapPin, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
@@ -15,9 +16,11 @@ import {
 export default function PropertyCard({
   property,
   featured,
+  dashboardProperty,
 }: {
   property: IProperty;
   featured?: boolean;
+  dashboardProperty?: boolean;
 }) {
   return (
     <Card className="py-3 2xl:py-5">
@@ -83,12 +86,21 @@ export default function PropertyCard({
         </div>
       </CardContent>
       <CardFooter className="px-3 2xl:px-5">
-        <Link
-          href={`/properties/${property.id}`}
-          className="w-full mt-auto px-4 py-3 bg-transparent text-primary font-medium text-center border border-primary rounded-3xl duration-300 hover:bg-primary hover:text-white"
-        >
-          View Details
-        </Link>
+        {dashboardProperty ? (
+          <div className="flex gap-1">
+            <Button className="cursor-pointer px-4 py-4">Edit</Button>
+            <Button variant="destructive" className="cursor-pointer px-4 py-4">
+              Remove
+            </Button>
+          </div>
+        ) : (
+          <Link
+            href={`/properties/${property.id}`}
+            className="w-full mt-auto px-4 py-3 bg-transparent text-primary font-medium text-center border border-primary rounded-3xl duration-300 hover:bg-primary hover:text-white"
+          >
+            View Details
+          </Link>
+        )}
       </CardFooter>
     </Card>
   );

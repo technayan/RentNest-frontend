@@ -21,7 +21,7 @@ const LANDLORD_SIDEBAR_ITEMS: ISidebarItem[] = [
     href: "/dashboard/landlord/profile",
   },
   {
-    label: "Properties",
+    label: "My Properties",
     href: "/dashboard/landlord/properties",
   },
   {
