@@ -95,3 +95,74 @@ export type ISidebarItem = {
   label: string;
   href: string;
 };
+
+export type IProfileUpdateFormState = {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    status: string;
+    role: string;
+    profile_photo: string;
+    created_at: string;
+    updated_at: string;
+  };
+};
+
+export type IPropertyUpdateFormState = {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: {
+    id: string;
+    title: string;
+    landlord_id: string;
+    category_id: string;
+    property_image: string;
+    description: string;
+    price: string;
+    location: string;
+    availability_status: string;
+    isDeleted: boolean;
+    isFeatured: boolean;
+    created_at: string;
+    updated_at: string;
+  };
+};
+
+export type ITenantRequests = {
+  id: string;
+  tenant_id: string;
+  property_id: string;
+  message: string;
+  status: string;
+  is_paid: boolean;
+  created_at: string;
+  updated_at: string;
+  property: {
+    id: string;
+    title: string;
+    landlord_id: string;
+    category_id: string;
+    property_image: string;
+    description: string;
+    price: string;
+    location: string;
+    availability_status: string;
+    isDeleted: boolean;
+    isFeatured: boolean;
+    created_at: string;
+    updated_at: string;
+  };
+};
+
+export type ITenantRequestsProps = {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: ITenantRequests;
+};

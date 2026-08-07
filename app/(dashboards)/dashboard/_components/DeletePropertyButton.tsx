@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
 import { toast } from "sonner";
-import { deleteProperty } from "../_actions/dashboardActions";
+import { deleteProperty } from "../landlord/_actions/landlordActions";
 
 export default function DeletePropertyButton({ id }: { id: string }) {
   const [isPending, startTransition] = useTransition();

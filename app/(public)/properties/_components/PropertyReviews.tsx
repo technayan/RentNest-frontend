@@ -2,6 +2,7 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getNameInitials } from "@/service/getNameInitials";
+import { getDate } from "@/utils/getDate";
 import { Star } from "lucide-react";
 
 interface ITenant {
@@ -23,17 +24,6 @@ interface PropertyReviewsProps {
 }
 
 export function PropertyReviews({ reviews }: PropertyReviewsProps) {
-  const getDate = (dateString: string) => {
-    const date = new Date(dateString);
-
-    const formattedDate = date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-    return formattedDate;
-  };
-
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-semibold text-foreground">

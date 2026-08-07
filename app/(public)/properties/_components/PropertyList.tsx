@@ -1,4 +1,4 @@
-import { getMyProperties } from "@/app/(dashboards)/dashboard/_actions/dashboardActions";
+import { getMyProperties } from "@/app/(dashboards)/dashboard/landlord/_actions/landlordActions";
 import { getProperties } from "@/app/_actions/getProperties";
 import PropertyCard from "@/components/shared/PropertyCard";
 import { IProperty } from "@/lib/types";

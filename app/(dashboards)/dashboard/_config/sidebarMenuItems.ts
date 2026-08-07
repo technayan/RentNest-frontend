@@ -6,7 +6,7 @@ const TENANT_SIDEBAR_ITEMS: ISidebarItem[] = [
     href: "/dashboard/landlord/profile",
   },
   {
-    label: "Requests",
+    label: "My Requests",
     href: "/dashboard/tenant/requests",
   },
   {

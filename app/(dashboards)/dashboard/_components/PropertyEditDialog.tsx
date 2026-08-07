@@ -26,7 +26,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { IProperty } from "@/lib/types";
 import { startTransition, useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { updateProperty } from "../_actions/dashboardActions";
+import { updateProperty } from "../landlord/_actions/landlordActions";
 
 export function PropertyEditDialog({ property }: { property: IProperty }) {
   const categories = [
