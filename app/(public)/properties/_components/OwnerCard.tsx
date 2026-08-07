@@ -1,15 +1,16 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { getNameInitials } from "@/service/getNameInitials";
 import { Mail, Phone } from "lucide-react";
+import RentalRequestDialog from "./RentalRequestDialog";
 
 interface OwnerCardProps {
   ownerImage: string;
   ownerName: string;
   ownerEmail: string;
   ownerPhone: string;
+  propertyId: string;
   availability_status: string;
 }
 
@@ -18,6 +19,7 @@ export function OwnerCard({
   ownerName,
   ownerEmail,
   ownerPhone,
+  propertyId,
   availability_status,
 }: OwnerCardProps) {
   return (
@@ -69,26 +71,10 @@ export function OwnerCard({
 
       {/* Action Buttons */}
       <div className="space-y-4">
-        <Button
-          className={`w-full py-6 cursor-pointer text-base   ${
-            availability_status === "RENTED"
-              ? "bg-gray-300 text-gray-700"
-              : availability_status === "UNAVAILABLE"
-                ? "bg-gray-300 text-gray-700"
-                : "bg-primary"
-          }`}
-          size="lg"
-          disabled={
-            availability_status === "RENTED" ||
-            availability_status === "UNAVAILABLE"
-          }
-        >
-          {availability_status === "RENTED"
-            ? "Already Rented"
-            : availability_status === "UNAVAILABLE"
-              ? "Property Unavailable"
-              : "Request for Rent"}
-        </Button>
+        <RentalRequestDialog
+          id={propertyId}
+          availability_status={availability_status}
+        />
       </div>
     </div>
   );

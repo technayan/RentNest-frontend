@@ -221,8 +221,14 @@ export function PropertyEditDialog({ property }: { property: IProperty }) {
             </FieldGroup>
           </div>
           <DialogFooter className="mt-5">
-            <DialogClose render={<Button variant="outline">Cancel</Button>} />
-            <Button type="submit">
+            <DialogClose
+              render={
+                <Button variant="outline" className="cursor-pointer">
+                  Cancel
+                </Button>
+              }
+            />
+            <Button type="submit" className="cursor-pointer">
               {pending ? "Saving..." : "Save changes"}
             </Button>
           </DialogFooter>

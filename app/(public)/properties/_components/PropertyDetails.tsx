@@ -47,7 +47,8 @@ export default async function PropertyDetails({
               ownerName={property.landLord?.name}
               ownerEmail={property.landLord?.email}
               ownerPhone={property.landLord?.phone}
-              availability_status={property.avai}
+              propertyId={property.id}
+              availability_status={property.availability_status}
             />
           </div>
         </div>

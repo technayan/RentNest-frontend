@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,18 +12,20 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Field, FieldGroup } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { IUser } from "@/lib/types";
+import { Textarea } from "@/components/ui/textarea";
 import { startTransition, useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { handleUpdateProfile } from "../_actions/dashboardActions";
+import { sendRentalRequest } from "../_actions/propertyActions";
 
-export function ProfileUpdateDialog({ user }: { user: IUser }) {
+export default function RentalRequestDialog({
+  id,
+  availability_status,
+}: {
+  id: string;
+  availability_status: string;
+}) {
   const [open, setOpen] = useState(false);
-  const [inputName, setInputName] = useState(user?.name ?? "");
-  const [inputPhone, setInputPhone] = useState(user?.phone ?? "");
-  const [inputPhoto, setInputPhoto] = useState(user?.profile_photo ?? "");
   const [submitted, setSubmitted] = useState(false);
 
   const initialState = {
@@ -33,7 +36,7 @@ export function ProfileUpdateDialog({ user }: { user: IUser }) {
   };
 
   const [state, action, pending] = useActionState(
-    handleUpdateProfile,
+    sendRentalRequest.bind(null, id),
     initialState,
   );
 
@@ -51,26 +54,37 @@ export function ProfileUpdateDialog({ user }: { user: IUser }) {
       setSubmitted(false);
     });
   }, [state, submitted]);
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
         render={
           <Button
-            variant="outline"
-            className={
-              "mt-5 px-4 py-4 border-primary hover:bg-primary hover:text-white cursor-pointer"
+            className={`w-full py-6 cursor-pointer text-base   ${
+              availability_status === "RENTED"
+                ? "bg-gray-300 text-gray-700"
+                : availability_status === "UNAVAILABLE"
+                  ? "bg-gray-300 text-gray-700"
+                  : "bg-primary"
+            }`}
+            size="lg"
+            disabled={
+              availability_status === "RENTED" ||
+              availability_status === "UNAVAILABLE"
             }
           >
-            Edit Profile
+            {availability_status === "RENTED"
+              ? "Already Rented"
+              : availability_status === "UNAVAILABLE"
+                ? "Property Unavailable"
+                : "Request for Rent"}
           </Button>
         }
       />
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Rental Request</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
+            Provide your message here. Click send when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <form
@@ -81,33 +95,12 @@ export function ProfileUpdateDialog({ user }: { user: IUser }) {
         >
           <FieldGroup>
             <Field>
-              <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
-                name="name"
+              <Label htmlFor="message">Message</Label>
+              <Textarea
+                id="message"
+                name="message"
                 className="py-5"
-                value={inputName}
-                onChange={(e) => setInputName(e.target.value)}
-              />
-            </Field>
-            <Field>
-              <Label htmlFor="phone">Phone</Label>
-              <Input
-                id="phone"
-                name="phone"
-                className="py-5"
-                value={inputPhone}
-                onChange={(e) => setInputPhone(e.target.value)}
-              />
-            </Field>
-            <Field>
-              <Label htmlFor="profile_photo">Profile Photo</Label>
-              <Input
-                id="profile_photo"
-                name="profile_photo"
-                className="py-5"
-                value={inputPhoto}
-                onChange={(e) => setInputPhoto(e.target.value)}
+                placeholder="Write a message"
               />
             </Field>
           </FieldGroup>
@@ -120,7 +113,7 @@ export function ProfileUpdateDialog({ user }: { user: IUser }) {
               }
             />
             <Button type="submit" className="cursor-pointer">
-              {pending ? "Saving..." : "Save changes"}
+              {pending ? "Sending..." : "Send"}
             </Button>
           </DialogFooter>
         </form>
