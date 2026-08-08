@@ -1,8 +1,8 @@
 "use server";
 
-import { IPropertyUpdateFormState } from "@/lib/types";
+import { IPropertyUpdateFormState, IRequestStatus } from "@/lib/types";
 import { isAccessTokenExist } from "@/service/refreshToken";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 //* Get My Properties
 export const getMyProperties = async () => {
@@ -105,7 +105,7 @@ export const getActiveRequests = async () => {
   const accessToken = await isAccessTokenExist();
 
   const res = await fetch(
-    `${process.env.BACKEND_API_URL}/api/landlord/active-requests`,
+    `${process.env.BACKEND_API_URL}/api/landlord/requests`,
     {
       headers: {
         Cookie: `accessToken=${accessToken}`,
@@ -117,4 +117,33 @@ export const getActiveRequests = async () => {
   const result = await res.json();
 
   return result.data;
+};
+
+//* Request Action
+export const requestAction = async (
+  prevState: IRequestStatus,
+  { id, actionType }: { id: string; actionType: "APPROVED" | "REJECTED" },
+) => {
+  const accessToken = await isAccessTokenExist();
+
+  const status = actionType;
+
+  const payload = { status };
+
+  const res = await fetch(
+    `${process.env.BACKEND_API_URL}/api/landlord/requests/${id}`,
+    {
+      method: "PATCH",
+      headers: {
+        Cookie: `accessToken=${accessToken}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    },
+  );
+
+  const result = await res.json();
+  revalidatePath("/");
+
+  return result;
 };

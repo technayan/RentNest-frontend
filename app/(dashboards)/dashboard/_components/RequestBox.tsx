@@ -9,6 +9,15 @@ import { getNameInitials } from "@/service/getNameInitials";
 import { getDate } from "@/utils/getDate";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  startTransition,
+  useActionState,
+  useEffect,
+  useOptimistic,
+  useState,
+} from "react";
+import { toast } from "sonner";
+import { requestAction } from "../landlord/_actions/landlordActions";
 
 export function RequestBox({
   request,
@@ -17,19 +26,47 @@ export function RequestBox({
   request: IRequest;
   role: string;
 }) {
+  const [submitted, setSubmitted] = useState(false);
+
+  const [optimisticStatus, setOptimisticStatus] = useOptimistic(request.status);
+
   let statusColor = "";
 
-  if (request.status === "COMPLETED") {
+  if (optimisticStatus === "COMPLETED") {
     statusColor = "bg-gray-500 text-black";
-  } else if (request.status === "APPROVED") {
+  } else if (optimisticStatus === "APPROVED") {
     statusColor = "bg-blue-500 text-white";
-  } else if (request.status === "REJECTED") {
+  } else if (optimisticStatus === "REJECTED") {
     statusColor = "bg-red-500 text-white";
-  } else if (request.status === "ACTIVE") {
+  } else if (optimisticStatus === "ACTIVE") {
     statusColor = "bg-green-500 text-white";
   } else {
     statusColor = "bg-orange-500 text-white";
   }
+
+  const [state, action, pending] = useActionState(requestAction, null);
+
+  useEffect(() => {
+    if (!submitted || pending || !state) return;
+    if (state.success) {
+      toast.success(`Request ${state.data?.status}`);
+    } else {
+      toast.error(state.message);
+    }
+
+    startTransition(() => {
+      setOptimisticStatus(request.status);
+      setSubmitted(false);
+    });
+  }, [state, pending, submitted, request.status, setOptimisticStatus]);
+
+  const handleRequestAction = (actionType: "APPROVED" | "REJECTED") => {
+    setSubmitted(true);
+    startTransition(() => {
+      setOptimisticStatus(actionType);
+      action({ id: request.id, actionType });
+    });
+  };
 
   return (
     <Card className="w-full max-w-5xl border bg-background shadow-none p-3 rounded-lg md:rounded-2xl">
@@ -65,16 +102,14 @@ export function RequestBox({
                 <div className="flex items-center gap-2 mt-2 shrink-0">
                   <Avatar className="size-8">
                     <AvatarImage
-                      src={
-                        "https://images.unsplash.com/photo-1613064756072-52b429a1e06f?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      }
+                      src={request.tenant?.profile_photo}
                       alt={"Arif Hossain"}
                     />
                     <AvatarFallback>
-                      {getNameInitials("Arif Hossain")}
+                      {getNameInitials(request.tenant?.name)}
                     </AvatarFallback>
                   </Avatar>
-                  <p>Arif Hossain</p>
+                  <p>{request.tenant?.name}</p>
                 </div>
               )}
               <div className="w-full lg:flex justify-between items-end flex-1 min-h-0">
@@ -96,12 +131,20 @@ export function RequestBox({
                     ""
                   )
                 ) : role === "LANDLORD" ? (
-                  request.status === "PENDING" ? (
+                  optimisticStatus === "PENDING" ? (
                     <div className="flex gap-2">
-                      <Button className="cursor-pointer p-4 text-base border-primary bg-transparent text-primary hover:bg-primary hover:text-white">
-                        Accept
+                      <Button
+                        onClick={() => handleRequestAction("APPROVED")}
+                        disabled={pending}
+                        className="cursor-pointer p-4 text-base border-primary bg-transparent text-primary hover:bg-primary hover:text-white"
+                      >
+                        Approve
                       </Button>
-                      <Button className="cursor-pointer p-4 text-base border-red-600 bg-transparent text-red-600 hover:bg-red-600 hover:text-white">
+                      <Button
+                        onClick={() => handleRequestAction("REJECTED")}
+                        disabled={pending}
+                        className="cursor-pointer p-4 text-base border-red-600 bg-transparent text-red-600 hover:bg-red-600 hover:text-white"
+                      >
                         Reject
                       </Button>
                     </div>
@@ -117,7 +160,7 @@ export function RequestBox({
         </div>
         <div className="absolute top-2 right-2">
           <Badge className={`px-3 py-2 text-xs ${statusColor}`}>
-            {request.status}
+            {optimisticStatus}
           </Badge>
         </div>
       </CardContent>

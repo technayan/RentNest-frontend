@@ -179,3 +179,29 @@ export type ITenantRequestsProps = {
   message: string;
   data: IRequest;
 };
+
+export type IRequestStatus = {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: {
+    id: string;
+    tenant_id: string;
+    property_id: string;
+    message: string;
+    status: string;
+    is_paid: boolean;
+    created_at: string;
+    updated_at: string;
+    tenant: {
+      name: string;
+      email: string;
+      phone: string;
+      profile_photo: string;
+    };
+    property: {
+      title: string;
+      price: string;
+    };
+  };
+};
