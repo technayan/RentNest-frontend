@@ -3,12 +3,12 @@ import DashboarTitle from "../../_components/DashboarTitle";
 import RequestList from "../../_components/RequestList";
 import { RequestListSkeleton } from "../../_components/RequestListSkeleton";
 
-export default function LandlordRequestsPage() {
+export default function AdminRequestPage() {
   return (
     <div>
-      <DashboarTitle title={"Active Requests"} />
+      <DashboarTitle title={"Pending Requests"} />
       <Suspense fallback={<RequestListSkeleton />}>
-        <RequestList requestType={"ACTIVE"} />
+        <RequestList />
       </Suspense>
     </div>
   );

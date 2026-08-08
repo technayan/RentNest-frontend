@@ -99,3 +99,22 @@ export const deleteProperty = async (id: string) => {
 
   return result;
 };
+
+//* Get Active Requests
+export const getActiveRequests = async () => {
+  const accessToken = await isAccessTokenExist();
+
+  const res = await fetch(
+    `${process.env.BACKEND_API_URL}/api/landlord/active-requests`,
+    {
+      headers: {
+        Cookie: `accessToken=${accessToken}`,
+        "content-type": "application/json",
+      },
+    },
+  );
+
+  const result = await res.json();
+
+  return result.data;
+};

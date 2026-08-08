@@ -25,7 +25,7 @@ const LANDLORD_SIDEBAR_ITEMS: ISidebarItem[] = [
     href: "/dashboard/landlord/properties",
   },
   {
-    label: "Requests",
+    label: "New Requests",
     href: "/dashboard/landlord/requests",
   },
   {
@@ -56,7 +56,7 @@ const ADMIN_SIDEBAR_ITEMS: ISidebarItem[] = [
     href: "/dashboard/admin/properties",
   },
   {
-    label: "All Pending Requests",
+    label: "Pending Requests",
     href: "/dashboard/admin/pending-requests",
   },
 ];

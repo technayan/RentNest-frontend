@@ -134,7 +134,7 @@ export type IPropertyUpdateFormState = {
   };
 };
 
-export type ITenantRequests = {
+export type IRequest = {
   id: string;
   tenant_id: string;
   property_id: string;
@@ -158,11 +158,24 @@ export type ITenantRequests = {
     created_at: string;
     updated_at: string;
   };
+  tenant: {
+    name: string;
+    email: string;
+    phone: string;
+    profile_photo: string;
+  };
+  payment?: {
+    status?: string;
+  };
+  review: {
+    rating?: number;
+    comment: string;
+  };
 };
 
 export type ITenantRequestsProps = {
   success: boolean;
   statusCode: number;
   message: string;
-  data: ITenantRequests;
+  data: IRequest;
 };

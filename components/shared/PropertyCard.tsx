@@ -62,7 +62,9 @@ export default function PropertyCard({
           className="duration-300 hover:text-primary my-2"
         >
           <CardTitle className="text-base sm:text-xl">
-            {property.title}
+            {property.title.length > 40
+              ? property.title.slice(0, 40).concat("...")
+              : property.title}
           </CardTitle>
         </Link>
         <CardDescription className="sm:text-base">

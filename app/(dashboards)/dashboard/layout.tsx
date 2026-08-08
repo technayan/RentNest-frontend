@@ -19,7 +19,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             <DashboardSidebarArea />
             <SidebarInset>
               <SidebarTrigger className="sticky top-18 ml-0 z-10 bg-primary text-white p-5 rounded-lg hover:bg-primary/50 md:hidden" />
-              <div className="p-5"> {children}</div>
+              <div className="container mx-auto px-4 py-5"> {children}</div>
             </SidebarInset>
           </Suspense>
         </div>
